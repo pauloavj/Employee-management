@@ -8,13 +8,13 @@ public class Employee {
     private int id;
     private String firstName;
     private String lastName;
-    private int employeeCode;
+    private String employeeCode;
     private LocalDate dateOfBirth;
     private boolean isFullTime;
     private Position position;
     private LocalDate dateHired;
 
-    public Employee(String firstName, String lastName, int employeeCode, LocalDate dateOfBirth, boolean isFullTime, Position position, LocalDate dateHired) {
+    public Employee(String firstName, String lastName, String employeeCode, LocalDate dateOfBirth, boolean isFullTime, Position position, LocalDate dateHired) {
         this.id = count.incrementAndGet();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,11 +49,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public int getEmployeeCode() {
+    public String getEmployeeCode() {
         return employeeCode;
     }
 
-    public void setEmployeeCode(int employeeCode) {
+    public void setEmployeeCode(String employeeCode) {
         this.employeeCode = employeeCode;
     }
 

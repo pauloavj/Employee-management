@@ -14,4 +14,5 @@ public interface IEmployeeRepository {
     boolean employeeExists(int id);
     boolean isEmployeeValid(Employee employee);
     void deleteEmployee (int id);
+//    boolean isEmployeeCodeValid(String number);
 }

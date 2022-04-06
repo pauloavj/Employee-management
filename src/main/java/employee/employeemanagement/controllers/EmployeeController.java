@@ -30,7 +30,7 @@ public class EmployeeController {
 
     @PostMapping
     ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
-        if (employeeRepository.isEmployeeValid(employee))
+        if (employeeRepository.isEmployeeValid(employee) )
             return new ResponseEntity<>(employeeRepository.addEmployee(employee), HttpStatus.CREATED);
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
@@ -53,7 +53,6 @@ public class EmployeeController {
 
         if (!employeeRepository.isEmployeeValid(employee))
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-
         return new ResponseEntity<>(employeeRepository.modifyEmployee(id, employee), HttpStatus.CREATED);
     }
 

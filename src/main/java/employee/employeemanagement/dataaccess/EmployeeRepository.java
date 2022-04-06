@@ -1,7 +1,9 @@
 package employee.employeemanagement.dataaccess;
 
+import employee.employeemanagement.models.domain.CheckEmployeeCode;
 import employee.employeemanagement.models.domain.Employee;
 import employee.employeemanagement.models.domain.Position;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,6 +11,8 @@ import java.util.List;
 
 @Component
 public class EmployeeRepository implements IEmployeeRepository{
+    @Autowired
+    private CheckEmployeeCode checkEmployeeCode;
 
     private final List<Employee> employees = seedEmployees();
 
@@ -17,7 +21,7 @@ public class EmployeeRepository implements IEmployeeRepository{
         initialEmployees.add(new Employee(
                 "James",
                 "Bond",
-                123456,
+                "8072635082",
                 LocalDate.of(1998,9,25),
                 true,
                 Position.Developer,
@@ -26,7 +30,7 @@ public class EmployeeRepository implements IEmployeeRepository{
         initialEmployees.add(new Employee(
                 "Rafael",
                 "Nadal",
-                234567,
+                "9863003985",
                 LocalDate.of(1988,5,21),
                 false,
                 Position.Tester,
@@ -51,8 +55,6 @@ public class EmployeeRepository implements IEmployeeRepository{
 
     @Override
     public Employee addEmployee(Employee employee) {
-        //check luhn algorithm before adding an employee
-
         employees.add(employee);
         return getEmployee(employee.getId());
     }
@@ -94,15 +96,15 @@ public class EmployeeRepository implements IEmployeeRepository{
     public boolean isEmployeeValid(Employee employee) {
         return employee.getFirstName() != null &&
                 employee.getLastName() != null &&
-                employee.getEmployeeCode() != 0 &&
+                employee.getEmployeeCode() != null &&
                 employee.getDateOfBirth() != null &&
                 employee.getPosition() != null &&
-                employee.getDateHired() != null;
+                employee.getDateHired() != null &&
+                checkEmployeeCode.isLuhnNumber(employee.getEmployeeCode());
     }
 
     @Override
     public void deleteEmployee(int id) {
         employees.remove(getEmployee(id));
     }
-
 }
