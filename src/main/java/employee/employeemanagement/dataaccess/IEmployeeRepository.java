@@ -2,7 +2,10 @@ package employee.employeemanagement.dataaccess;
 
 import employee.employeemanagement.models.domain.Employee;
 import employee.employeemanagement.models.dto.EmployeeDevicesSummaryDto;
+import employee.employeemanagement.models.dto.FullTimeEmployeesDto;
+import employee.employeemanagement.models.dto.HiredEmployeeDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IEmployeeRepository {
@@ -18,5 +21,7 @@ public interface IEmployeeRepository {
     Employee removeDevice(int id, String deviceName);
     Employee addDevice(int id, String deviceName);
     EmployeeDevicesSummaryDto employeesNumberOfDevices();
+    ArrayList<HiredEmployeeDto> employeesHired();
+    ArrayList<FullTimeEmployeesDto> fullTimeEmployees();
 //    boolean isEmployeeCodeValid(String number);
 }

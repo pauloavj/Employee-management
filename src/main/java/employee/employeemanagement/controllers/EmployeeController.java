@@ -3,11 +3,14 @@ package employee.employeemanagement.controllers;
 import employee.employeemanagement.dataaccess.IEmployeeRepository;
 import employee.employeemanagement.models.domain.Employee;
 import employee.employeemanagement.models.dto.EmployeeDevicesSummaryDto;
+import employee.employeemanagement.models.dto.FullTimeEmployeesDto;
+import employee.employeemanagement.models.dto.HiredEmployeeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +40,7 @@ public class EmployeeController {
 
     @PostMapping
     ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
-        if (employeeRepository.isEmployeeValid(employee) )
+        if (employeeRepository.isEmployeeValid(employee))
             return new ResponseEntity<>(employeeRepository.addEmployee(employee), HttpStatus.CREATED);
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
@@ -91,5 +94,13 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeRepository.employeesNumberOfDevices(), HttpStatus.OK);
     }
 
+    @GetMapping("/new")
+    public ResponseEntity<ArrayList<HiredEmployeeDto>> employeesHired(){
+        return new ResponseEntity<>(employeeRepository.employeesHired(), HttpStatus.OK);
+    }
 
+    @GetMapping("/birthdays")
+    public ResponseEntity<ArrayList<FullTimeEmployeesDto>> fullTimeEmployees(){
+        return  new ResponseEntity<>(employeeRepository.fullTimeEmployees(),HttpStatus.OK);
+    }
 }

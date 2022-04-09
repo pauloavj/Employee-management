@@ -5,22 +5,31 @@ import employee.employeemanagement.models.domain.Employee;
 import employee.employeemanagement.models.domain.Position;
 import employee.employeemanagement.models.domain.WorkTime;
 import employee.employeemanagement.models.dto.EmployeeDevicesSummaryDto;
-import employee.employeemanagement.models.maps.EmployeeDevicesSummaryDtoMap;
-import employee.employeemanagement.models.maps.HiredEmployeeDtoMap;
+import employee.employeemanagement.models.dto.FullTimeEmployeesDto;
+import employee.employeemanagement.models.dto.HiredEmployeeDto;
+import employee.employeemanagement.models.maps.EmployeeDevicesSummaryDtoMapper;
+import employee.employeemanagement.models.maps.FullTimeEmployeeDtoMapper;
+import employee.employeemanagement.models.maps.HiredEmployeeDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class EmployeeRepository implements IEmployeeRepository{
-
+    @Autowired
     private CheckEmployeeCode checkEmployeeCode;
 
+    private HiredEmployeeDtoMapper hiredEmployeeDtoMapper;
+
+
     private final List<Employee> employees = seedEmployees();
+
+    @Autowired
+    public EmployeeRepository(HiredEmployeeDtoMapper hiredEmployeeDtoMapper) {
+        this.hiredEmployeeDtoMapper = hiredEmployeeDtoMapper;
+    }
 
     private List<Employee> seedEmployees() {
         var initialEmployees = new ArrayList<Employee>();
@@ -145,13 +154,19 @@ public class EmployeeRepository implements IEmployeeRepository{
 
     @Override
     public EmployeeDevicesSummaryDto employeesNumberOfDevices() {
-        var employeeDevicesMap = EmployeeDevicesSummaryDtoMap.EmployeeDevices(employees);
+        var employeeDevicesMap = EmployeeDevicesSummaryDtoMapper.EmployeeDevices(employees);
         return employeeDevicesMap;
     }
 
-    public ArrayList<HiredEmployeeDtoMap> employeesHired(){
-        ArrayList<HiredEmployeeDtoMap> employeesHired = new ArrayList<>();
-        return employeesHired;
+    @Override
+    public ArrayList<HiredEmployeeDto> employeesHired(){
+        return HiredEmployeeDtoMapper.employeesHired(employees);
     }
+
+    @Override
+    public ArrayList<FullTimeEmployeesDto> fullTimeEmployees(){
+        return FullTimeEmployeeDtoMapper.getFullTimeEmployees(employees);
+    }
+
 
 }

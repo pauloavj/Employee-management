@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EmployeeDevicesSummaryDtoMap {
+public class EmployeeDevicesSummaryDtoMapper {
 
     public static EmployeeDevicesSummaryDto EmployeeDevices(List<Employee> employees){
         Map<String, Integer> employeeDevicesMap = new HashMap<>();
@@ -20,6 +20,5 @@ public class EmployeeDevicesSummaryDtoMap {
         EmployeeDevicesSummaryDto employeeDevicesSummaryDto = new EmployeeDevicesSummaryDto(employeeDevicesMap);
 
         return employeeDevicesSummaryDto;
-
     }
 }

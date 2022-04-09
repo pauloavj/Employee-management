@@ -15,15 +15,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 //@AllArgsConstructor
 public class Employee {
     private static final AtomicInteger count = new AtomicInteger(0);
-    int id;
-    String firstName;
-    String lastName;
-    String employeeCode;
-    LocalDate dateOfBirth;
-    WorkTime workTime;
-    Position position;
-    LocalDate dateHired;
-    ArrayList<String> devices;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String employeeCode;
+    private LocalDate dateOfBirth;
+    private WorkTime workTime;
+    private Position position;
+    private LocalDate dateHired;
+    private ArrayList<String> devices;
 
 
     public Employee(String firstName,

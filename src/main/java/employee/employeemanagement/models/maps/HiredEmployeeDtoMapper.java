@@ -2,12 +2,14 @@ package employee.employeemanagement.models.maps;
 
 import employee.employeemanagement.models.domain.Employee;
 import employee.employeemanagement.models.dto.HiredEmployeeDto;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HiredEmployeeDtoMap {
+@Component
+public class HiredEmployeeDtoMapper {
 
     public static ArrayList<HiredEmployeeDto> employeesHired(List<Employee> employees){
         ArrayList<HiredEmployeeDto> newEmployees = new ArrayList<>();
@@ -17,7 +19,7 @@ public class HiredEmployeeDtoMap {
             if(twoYearsAgo.isBefore(employee.getDateHired())){
                 var employeeCode = employee.getEmployeeCode();
                 var employeeFullName = employee.getFirstName() + " " + employee.getLastName();
-                HiredEmployeeDto newEmployee = new HiredEmployeeDto(employeeFullName,employeeCode);
+                HiredEmployeeDto newEmployee = new  HiredEmployeeDto(employeeFullName,employeeCode);
                 newEmployees.add(newEmployee);
             }
         }

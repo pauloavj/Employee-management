@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class HiredEmployeeDto {
-    String employeeFullName;
-    String employeeCode;
+public class FullTimeEmployeesDto {
+    String firstName;
+    LocalDate dateOfBirth;
+    long remainingDaysToBirthday;
 }
