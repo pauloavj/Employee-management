@@ -1,6 +1,7 @@
 package employee.employeemanagement.dataaccess;
 
 import employee.employeemanagement.models.domain.Employee;
+import employee.employeemanagement.models.dto.EmployeeDevicesSummaryDto;
 
 import java.util.List;
 
@@ -14,5 +15,8 @@ public interface IEmployeeRepository {
     boolean employeeExists(int id);
     boolean isEmployeeValid(Employee employee);
     void deleteEmployee (int id);
+    Employee removeDevice(int id, String deviceName);
+    Employee addDevice(int id, String deviceName);
+    EmployeeDevicesSummaryDto employeesNumberOfDevices();
 //    boolean isEmployeeCodeValid(String number);
 }

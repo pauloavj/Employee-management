@@ -3,15 +3,21 @@ package employee.employeemanagement.dataaccess;
 import employee.employeemanagement.models.domain.CheckEmployeeCode;
 import employee.employeemanagement.models.domain.Employee;
 import employee.employeemanagement.models.domain.Position;
+import employee.employeemanagement.models.domain.WorkTime;
+import employee.employeemanagement.models.dto.EmployeeDevicesSummaryDto;
+import employee.employeemanagement.models.maps.EmployeeDevicesSummaryDtoMap;
+import employee.employeemanagement.models.maps.HiredEmployeeDtoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class EmployeeRepository implements IEmployeeRepository{
-    @Autowired
+
     private CheckEmployeeCode checkEmployeeCode;
 
     private final List<Employee> employees = seedEmployees();
@@ -19,23 +25,38 @@ public class EmployeeRepository implements IEmployeeRepository{
     private List<Employee> seedEmployees() {
         var initialEmployees = new ArrayList<Employee>();
         initialEmployees.add(new Employee(
-                "James",
-                "Bond",
-                "8072635082",
-                LocalDate.of(1998,9,25),
-                true,
-                Position.Developer,
-                LocalDate.of(2016,10,6)
-                ));
-        initialEmployees.add(new Employee(
-                "Rafael",
-                "Nadal",
-                "9863003985",
-                LocalDate.of(1988,5,21),
-                false,
+                "John",
+                "Doe",
+                "2018269734",
+                LocalDate.of(1980,02,14),
+                WorkTime.PartTime,
                 Position.Tester,
-                LocalDate.of(2011,1,25)
-        ));
+                LocalDate.of(2021,3,31),
+                new ArrayList<>(){{add("Dell XPS 13");}}));
+        initialEmployees.add(new Employee(
+                "Jane",
+                "Doe",
+                "1634751505",
+                LocalDate.of(1984,5,17),
+                WorkTime.FullTime,
+                Position.Manager,
+                LocalDate.of(2018,12,1),
+                new ArrayList<>(){{
+                    add("Alienware X17");
+                    add("Samsung30-inch LED Monitor");
+                }}));
+        initialEmployees.add(new Employee(
+                "Sven",
+                "Svensson",
+                "1507119608",
+                LocalDate.of(1987,3,22),
+                WorkTime.FullTime,
+                Position.Developer,
+                LocalDate.of(2019,2,15),
+                new ArrayList<>(){{
+                    add("Dell XPS 15");
+                    add("Samsung 27-inch LED Monitor");
+                }}));
         return initialEmployees;
     }
 
@@ -72,7 +93,7 @@ public class EmployeeRepository implements IEmployeeRepository{
         employeeToModify.setLastName(employee.getLastName());
         employeeToModify.setEmployeeCode(employee.getEmployeeCode());
         employeeToModify.setDateOfBirth(employee.getDateOfBirth());
-        employeeToModify.setFullTime(employee.isFullTime());
+        employeeToModify.setWorkTime(employee.getWorkTime());
         employeeToModify.setPosition(employee.getPosition());
         employeeToModify.setDateHired(employee.getDateHired());
         return getEmployee(id);
@@ -107,4 +128,30 @@ public class EmployeeRepository implements IEmployeeRepository{
     public void deleteEmployee(int id) {
         employees.remove(getEmployee(id));
     }
+
+    @Override
+    public Employee removeDevice(int id, String deviceName) {
+        var removeDeviceFromEmployee = getEmployee(id);
+        removeDeviceFromEmployee.getDevices().remove(deviceName);
+        return getEmployee(id);
+    }
+
+    @Override
+    public Employee addDevice(int id, String deviceName) {
+        var addDeviceToEmployee = getEmployee(id);
+        addDeviceToEmployee.getDevices().add(deviceName);
+        return getEmployee(id);
+    }
+
+    @Override
+    public EmployeeDevicesSummaryDto employeesNumberOfDevices() {
+        var employeeDevicesMap = EmployeeDevicesSummaryDtoMap.EmployeeDevices(employees);
+        return employeeDevicesMap;
+    }
+
+    public ArrayList<HiredEmployeeDtoMap> employeesHired(){
+        ArrayList<HiredEmployeeDtoMap> employeesHired = new ArrayList<>();
+        return employeesHired;
+    }
+
 }
