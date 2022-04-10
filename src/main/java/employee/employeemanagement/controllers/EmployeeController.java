@@ -91,16 +91,22 @@ public class EmployeeController {
 
     @GetMapping("/devices/summary")
     public ResponseEntity<EmployeeDevicesSummaryDto> employeesNumberOfDevices(){
+        if (employeeRepository.isEmployeesEmpty())
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(employeeRepository.employeesNumberOfDevices(), HttpStatus.OK);
     }
 
     @GetMapping("/new")
     public ResponseEntity<ArrayList<HiredEmployeeDto>> employeesHired(){
+        if (employeeRepository.isEmployeesEmpty())
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(employeeRepository.employeesHired(), HttpStatus.OK);
     }
 
     @GetMapping("/birthdays")
     public ResponseEntity<ArrayList<FullTimeEmployeesDto>> fullTimeEmployees(){
+        if (employeeRepository.isEmployeesEmpty())
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         return  new ResponseEntity<>(employeeRepository.fullTimeEmployees(),HttpStatus.OK);
     }
 }

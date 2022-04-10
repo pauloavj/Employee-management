@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Component
@@ -21,10 +22,16 @@ public class EmployeeRepository implements IEmployeeRepository{
     @Autowired
     private CheckEmployeeCode checkEmployeeCode;
 
+
     private HiredEmployeeDtoMapper hiredEmployeeDtoMapper;
 
 
     private final List<Employee> employees = seedEmployees();
+
+//    @Autowired
+//    public EmployeeRepository(CheckEmployeeCode checkEmployeeCode) {
+//        this.checkEmployeeCode = checkEmployeeCode;
+//    }
 
     @Autowired
     public EmployeeRepository(HiredEmployeeDtoMapper hiredEmployeeDtoMapper) {
@@ -105,6 +112,7 @@ public class EmployeeRepository implements IEmployeeRepository{
         employeeToModify.setWorkTime(employee.getWorkTime());
         employeeToModify.setPosition(employee.getPosition());
         employeeToModify.setDateHired(employee.getDateHired());
+        employeeToModify.setDevices(employee.getDevices());
         return getEmployee(id);
     }
 
@@ -130,7 +138,9 @@ public class EmployeeRepository implements IEmployeeRepository{
                 employee.getDateOfBirth() != null &&
                 employee.getPosition() != null &&
                 employee.getDateHired() != null &&
-                checkEmployeeCode.isLuhnNumber(employee.getEmployeeCode());
+                employee.getEmployeeCode().length() == 10 &&
+                checkEmployeeCode.codeExist(employee.getEmployeeCode(), employees) &&
+                checkEmployeeCode.isLuhnNumber(employee.getEmployeeCode()) ;
     }
 
     @Override

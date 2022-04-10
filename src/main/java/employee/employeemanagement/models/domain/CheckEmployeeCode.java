@@ -1,20 +1,27 @@
 package employee.employeemanagement.models.domain;
 
+import employee.employeemanagement.dataaccess.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class CheckEmployeeCode {
 
-    public boolean luhnNumberLength(String luhnNumber){
-        //check if value is 10 digits
-        return luhnNumber.length() == 10;
+//    @Autowired
+    private EmployeeRepository employeeRepository;
 
-    }
+//    @Autowired
+//    public CheckEmployeeCode(EmployeeRepository employeeRepository) {
+//        this.employeeRepository = employeeRepository;
+//    }
+
+
     public boolean isLuhnNumber(String number){
         //check if value is 10 digits
-        if (!luhnNumberLength(number))
-            return false;
 
         int[] arrayNumber = new int[number.length()];
 
@@ -33,5 +40,14 @@ public class CheckEmployeeCode {
 
         return Arrays.stream(arrayNumber).sum() % 10 == 0;
 
+    }
+    public boolean codeExist(String number, List<Employee> employees ){
+//        employeeRepository = new EmployeeRepository();
+//        var employees = employeeRepository.getAllEmployees();
+        for (Employee employee: employees) {
+            if (employee.getEmployeeCode().equals(number))
+                return false;
+        }
+        return true;
     }
 }
