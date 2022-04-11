@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CheckEmployeeCodeTest {
 
     private CheckEmployeeCode checkEmployeeCodeNumber;
-//
-//    @BeforeEach
-//    void setUp(){
-//        checkEmployeeCodeNumber = new CheckEmployeeCode();
-//    }
+
+    @BeforeEach
+    void setUp(){
+        checkEmployeeCodeNumber = new CheckEmployeeCode();
+    }
 
     @Test
     void isLuhnNumber_getStringCode_returnBoolean() {
@@ -25,15 +25,4 @@ class CheckEmployeeCodeTest {
         //assert
         assertTrue(actual);
     }
-
-
-//    @Test
-//    void codeExist() {
-//        //1634751505
-//        String testCode = "1634751505";
-//        boolean actual = checkEmployeeCodeNumber.codeExist(testCode);
-//
-//        assertFalse(actual);
-//
-//    }
 }

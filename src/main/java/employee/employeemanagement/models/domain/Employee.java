@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 //@AllArgsConstructor
 public class Employee {
-    private static final AtomicInteger count = new AtomicInteger(0);
+    private static AtomicInteger count = new AtomicInteger(0);
     private int id;
     private String firstName;
     private String lastName;
@@ -34,6 +34,7 @@ public class Employee {
                     Position position,
                     LocalDate dateHired,
                     ArrayList<String> devices) {
+//        count.set(0);
         this.id = count.incrementAndGet();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,6 +44,9 @@ public class Employee {
         this.position = position;
         this.dateHired = dateHired;
         this.devices = devices;
+    }
+    public void reset(){
+        count.set(0);
     }
 }
 //

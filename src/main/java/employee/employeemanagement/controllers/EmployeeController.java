@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/employees")
@@ -49,10 +48,8 @@ public class EmployeeController {
     public ResponseEntity<Employee> replaceEmployee(@PathVariable int id, @RequestBody Employee employee){
         if (!employeeRepository.employeeExists(id))
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
         if (!employeeRepository.isEmployeeValid(employee) || !employeeRepository.codeExists(employee.getEmployeeCode()))
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-
         return new ResponseEntity<>(employeeRepository.replaceEmployee(id,employee), HttpStatus.CREATED);
     }
 
