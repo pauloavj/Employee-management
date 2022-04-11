@@ -23,5 +23,6 @@ public interface IEmployeeRepository {
     EmployeeDevicesSummaryDto employeesNumberOfDevices();
     ArrayList<HiredEmployeeDto> employeesHired();
     ArrayList<FullTimeEmployeesDto> fullTimeEmployees();
+    boolean codeExists(String employeeCode);
 //    boolean isEmployeeCodeValid(String number);
 }

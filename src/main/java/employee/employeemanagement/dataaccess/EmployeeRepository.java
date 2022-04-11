@@ -19,23 +19,15 @@ import java.util.List;
 
 @Component
 public class EmployeeRepository implements IEmployeeRepository{
-    @Autowired
+
     private CheckEmployeeCode checkEmployeeCode;
-
-
     private HiredEmployeeDtoMapper hiredEmployeeDtoMapper;
-
-
     private final List<Employee> employees = seedEmployees();
 
-//    @Autowired
-//    public EmployeeRepository(CheckEmployeeCode checkEmployeeCode) {
-//        this.checkEmployeeCode = checkEmployeeCode;
-//    }
-
     @Autowired
-    public EmployeeRepository(HiredEmployeeDtoMapper hiredEmployeeDtoMapper) {
+    public EmployeeRepository(HiredEmployeeDtoMapper hiredEmployeeDtoMapper,CheckEmployeeCode checkEmployeeCode) {
         this.hiredEmployeeDtoMapper = hiredEmployeeDtoMapper;
+        this.checkEmployeeCode = checkEmployeeCode;
     }
 
     private List<Employee> seedEmployees() {
@@ -139,8 +131,17 @@ public class EmployeeRepository implements IEmployeeRepository{
                 employee.getPosition() != null &&
                 employee.getDateHired() != null &&
                 employee.getEmployeeCode().length() == 10 &&
-                checkEmployeeCode.codeExist(employee.getEmployeeCode(), employees) &&
                 checkEmployeeCode.isLuhnNumber(employee.getEmployeeCode()) ;
+    }
+
+    @Override
+    public boolean codeExists(String employeeCode){
+        for (Employee employee: employees) {
+            if(employee.getEmployeeCode().equals(employeeCode)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

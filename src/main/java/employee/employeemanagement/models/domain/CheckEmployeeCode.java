@@ -12,7 +12,7 @@ import java.util.List;
 public class CheckEmployeeCode {
 
 //    @Autowired
-    private EmployeeRepository employeeRepository;
+//    private EmployeeRepository employeeRepository;
 
 //    @Autowired
 //    public CheckEmployeeCode(EmployeeRepository employeeRepository) {
@@ -37,17 +37,17 @@ public class CheckEmployeeCode {
             }
         }
 
-
         return Arrays.stream(arrayNumber).sum() % 10 == 0;
 
     }
-    public boolean codeExist(String number, List<Employee> employees ){
-//        employeeRepository = new EmployeeRepository();
-//        var employees = employeeRepository.getAllEmployees();
-        for (Employee employee: employees) {
-            if (employee.getEmployeeCode().equals(number))
-                return false;
-        }
-        return true;
-    }
+//    public boolean codeExist(String number, List<Employee> employees ){
+////        employeeRepository = new EmployeeRepository();
+////        var employees = employeeRepository.getAllEmployees();
+//
+//        for (Employee employee: employees) {
+//            if (employee.getEmployeeCode().equals(number))
+//                return false;
+//        }
+//        return true;
+//    }
 }

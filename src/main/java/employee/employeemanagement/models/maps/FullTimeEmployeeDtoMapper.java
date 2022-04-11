@@ -3,6 +3,7 @@ package employee.employeemanagement.models.maps;
 import employee.employeemanagement.models.domain.Employee;
 import employee.employeemanagement.models.domain.WorkTime;
 import employee.employeemanagement.models.dto.FullTimeEmployeesDto;
+import org.springframework.stereotype.Component;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class FullTimeEmployeeDtoMapper {
     public static ArrayList<FullTimeEmployeesDto> getFullTimeEmployees(List<Employee> employees){
         ArrayList<FullTimeEmployeesDto> fullTimeEmployees = new ArrayList<>();

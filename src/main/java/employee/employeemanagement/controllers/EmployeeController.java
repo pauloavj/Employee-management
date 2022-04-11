@@ -40,7 +40,7 @@ public class EmployeeController {
 
     @PostMapping
     ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
-        if (employeeRepository.isEmployeeValid(employee))
+        if (employeeRepository.isEmployeeValid(employee) && employeeRepository.codeExists(employee.getEmployeeCode()))
             return new ResponseEntity<>(employeeRepository.addEmployee(employee), HttpStatus.CREATED);
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
@@ -50,7 +50,7 @@ public class EmployeeController {
         if (!employeeRepository.employeeExists(id))
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
-        if (!employeeRepository.isEmployeeValid(employee))
+        if (!employeeRepository.isEmployeeValid(employee) || !employeeRepository.codeExists(employee.getEmployeeCode()))
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(employeeRepository.replaceEmployee(id,employee), HttpStatus.CREATED);
@@ -60,8 +60,7 @@ public class EmployeeController {
     public ResponseEntity<Employee> modifyEmployee(@PathVariable int id, @RequestBody Employee employee){
         if (!employeeRepository.employeeExists(id))
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
-        if (!employeeRepository.isEmployeeValid(employee))
+        if (!employeeRepository.isEmployeeValid(employee) || !employeeRepository.codeExists(employee.getEmployeeCode()))
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(employeeRepository.modifyEmployee(id, employee), HttpStatus.CREATED);
     }
